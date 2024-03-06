@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 
 const SiteSchema = new Schema(
   {
-    site_name: {
+    name: {
       type: String,
       required: true,
     },
