@@ -3,10 +3,12 @@ import { CategoriesService } from './categories.service';
 import { CategoriesController } from './categories.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import CategoriesSchema from './categories.schema';
+import MissionSchema from 'src/mission/mission.schema';
+import { MissionService } from 'src/mission/mission.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([CategoriesSchema])],
+  imports: [MongooseModule.forFeature([CategoriesSchema,MissionSchema])],
   controllers: [CategoriesController],
-  providers: [CategoriesService]
+  providers: [CategoriesService,MissionService]
 })
 export class CategoriesModule {}

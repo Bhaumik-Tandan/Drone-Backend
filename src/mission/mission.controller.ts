@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   Delete,
   Req,
@@ -32,7 +32,7 @@ export class MissionController {
     return this.missionsService.findOne(req['user'].id, id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Req() req: Request,
     @Param('id') id: string,

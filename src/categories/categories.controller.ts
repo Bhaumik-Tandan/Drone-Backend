@@ -1,11 +1,12 @@
 import { Controller, Get, Post, Body, Put, Param, Delete, Req, UseGuards } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { MissionService } from 'src/mission/mission.service';
 
 @UseGuards(new JwtAuthGuard('jwt'))
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+  constructor(private readonly categoriesService: CategoriesService,private readonly missionsService: MissionService) {}
 
   @Post()
   create(@Body() category, @Req() req: Request) {
@@ -15,6 +16,11 @@ export class CategoriesController {
   @Get()
   findAll(@Req() req: Request) {
     return this.categoriesService.findAll(req['user'].id);
+  }
+
+  @Get(':categoryId/missions')
+  async getMissionsByCategory(@Req() req: Request,@Param('categoryId') categoryId: string) {
+    return this.missionsService.getMissionsByCategory(req['user'].id,categoryId);
   }
 
   @Get(':id')

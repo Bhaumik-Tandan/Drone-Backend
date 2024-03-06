@@ -15,6 +15,11 @@ export class MissionService {
     return mission.save();
   }
 
+  async getMissionsByCategory(userId,category)
+  {
+    return this.missionModel.find({ user: userId,category }).exec();
+  }
+
   async findAll(userId: string) {
     return this.missionModel.find({ user: userId }).exec();
   }
