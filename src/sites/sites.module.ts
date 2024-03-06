@@ -5,8 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import SitesSchema from './sites.schema';
 
 @Module({
-  imports:[MongooseModule.forFeature([SitesSchema])],
+  imports: [MongooseModule.forFeature([SitesSchema])],
   controllers: [SitesController],
-  providers: [SitesService]
+  providers: [SitesService],
 })
 export class SitesModule {}

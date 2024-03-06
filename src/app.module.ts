@@ -13,7 +13,7 @@ import { SitesModule } from './sites/sites.module';
     MongooseModule.forRoot(process.env.DATABASE_URL),
     UsersModule,
     AuthModule,
-    SitesModule
+    SitesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

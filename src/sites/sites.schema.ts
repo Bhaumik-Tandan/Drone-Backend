@@ -16,15 +16,15 @@ const SiteSchema = new Schema(
         required: true,
       },
     },
-    user:{
+    user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-    }
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default { name: 'Site', schema: SiteSchema };

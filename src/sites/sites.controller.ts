@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+  UseGuards,
+  Put,
+} from '@nestjs/common';
 import { SitesService } from './sites.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
@@ -8,8 +19,8 @@ export class SitesController {
   constructor(private readonly sitesService: SitesService) {}
 
   @Post()
-  create(@Body() site,@Req() req: Request) {
-    return this.sitesService.create(req['user'].id,site);
+  create(@Body() site, @Req() req: Request) {
+    return this.sitesService.create(req['user'].id, site);
   }
 
   @Get()
@@ -18,17 +29,17 @@ export class SitesController {
   }
 
   @Get(':id')
-  findOne(@Req() req: Request,@Param('id') id: string) {
-    return this.sitesService.findOne(req['user'].id,id);
+  findOne(@Req() req: Request, @Param('id') id: string) {
+    return this.sitesService.findOne(req['user'].id, id);
   }
 
-  @Patch(':id')
-  update(@Req() req: Request,@Param('id') id: string, @Body() updateSiteDto) {
-    return this.sitesService.update(req['user'].id,id, updateSiteDto);
+  @Put(':id')
+  update(@Req() req: Request, @Param('id') id: string, @Body() updateSiteDto) {
+    return this.sitesService.update(req['user'].id, id, updateSiteDto);
   }
 
   @Delete(':id')
-  remove(@Req() req: Request,@Param('id') id: string) {
-    return this.sitesService.remove(req['user'].id,id);
+  remove(@Req() req: Request, @Param('id') id: string) {
+    return this.sitesService.remove(req['user'].id, id);
   }
 }

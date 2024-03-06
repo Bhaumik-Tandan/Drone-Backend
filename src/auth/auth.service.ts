@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   getAuthToken(userData) {
-    const payload = { id: userData._id};
+    const payload = { id: userData._id };
     const accessToken = this.jwtService.sign(payload);
     return accessToken;
   }
@@ -38,7 +38,6 @@ export class AuthService {
       userData,
     });
   }
-
 
   async verifyUser(login) {
     const user = await this.userService.findByEmail(login.email);
