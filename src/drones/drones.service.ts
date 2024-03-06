@@ -20,6 +20,11 @@ export class DronesService {
     return this.droneModel.find({ user, deletedAt: null }).exec();
   }
 
+  async getDronesByCategory(userId, category)
+  {
+    return this.droneModel.find({ user: userId,category}).exec();
+  }
+
   async findOne(user, id: string) {
     try {
       const drone = await this.droneModel.findById(id).exec();

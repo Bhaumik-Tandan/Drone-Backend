@@ -2,11 +2,12 @@ import { Controller, Get, Post, Body, Put, Param, Delete, Req, UseGuards } from 
 import { CategoriesService } from './categories.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { MissionService } from 'src/mission/mission.service';
+import { DronesService } from 'src/drones/drones.service';
 
 @UseGuards(new JwtAuthGuard('jwt'))
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService,private readonly missionsService: MissionService) {}
+  constructor(private readonly categoriesService: CategoriesService,private readonly missionsService: MissionService,private readonly dronesService: DronesService) {}
 
   @Post()
   create(@Body() category, @Req() req: Request) {
@@ -21,6 +22,11 @@ export class CategoriesController {
   @Get(':categoryId/missions')
   async getMissionsByCategory(@Req() req: Request,@Param('categoryId') categoryId: string) {
     return this.missionsService.getMissionsByCategory(req['user'].id,categoryId);
+  }
+
+  @Get(':categoryId/drones')
+  async getDronesByCategory(@Req() req: Request,@Param('categoryId') categoryId: string) {
+    return this.dronesService.getDronesByCategory(req['user'].id,categoryId);
   }
 
   @Get(':id')
