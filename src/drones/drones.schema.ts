@@ -6,6 +6,7 @@ export interface Drone extends Document {
   droneType: string;
   name: string;
   site: Types.ObjectId;
+  category?: Types.ObjectId;
   user: Types.ObjectId;
 }
 
@@ -30,6 +31,10 @@ const DroneSchema = new Schema<Drone>(
       type: Schema.Types.ObjectId,
       ref: 'Site',
       required: true,
+    },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
     },
     user: {
       type: Schema.Types.ObjectId,
