@@ -18,6 +18,11 @@ export class MissionService {
     return this.missionModel.find({ user: userId }).exec();
   }
 
+  async getMission(userId, siteId)
+  {
+    return this.missionModel.find({ user: userId,site:siteId }).exec();
+  }
+
   async findOne(userId: string, id: string) {
     try {
       const mission = await this.missionModel.findById(id).exec();

@@ -2,11 +2,13 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import SitesSchema from './sites.schema';
 import { Model } from 'mongoose';
+import { MissionService } from 'src/mission/mission.service';
 @Injectable()
 export class SitesService {
   constructor(
     @InjectModel(SitesSchema.name)
     private sitesModel: Model<typeof SitesSchema>,
+    private readonly missionsService: MissionService
   ) {}
   async create(user: { _id: string }, siteData) {
     const site = new this.sitesModel({ ...siteData, user });
@@ -16,6 +18,11 @@ export class SitesService {
 
   async findAll(user) {
     return this.sitesModel.find({ user }).exec();
+  }
+
+  async getAllMissionsBySite(userId, siteId)
+  {
+    return this.missionsService.getMission(userId,siteId);
   }
 
   async findOne(user, id: string) {
