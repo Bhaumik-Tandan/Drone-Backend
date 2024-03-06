@@ -53,16 +53,20 @@ export class SitesService {
   }
 
   async remove(user, id: string) {
-    const deletedSite = await this.sitesModel
-      .findOneAndRemove({ _id: id, user })
-      .exec();
+    try {
+      const deletedSite = await this.sitesModel
+        .findOneAndRemove({ _id: id, user })
+        .exec();
 
-    if (!deletedSite) {
-      throw new UnauthorizedException(
-        'You are not authorized to delete this site or the site does not exist',
-      );
+      if (!deletedSite) {
+        throw new UnauthorizedException(
+          'You are not authorized to delete this site or the site does not exist',
+        );
+      }
+
+      return deletedSite;
+    } catch (error) {
+      return error;
     }
-
-    return deletedSite;
   }
 }
