@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { MissionService } from './mission.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
@@ -23,7 +33,11 @@ export class MissionController {
   }
 
   @Patch(':id')
-  update(@Req() req: Request, @Param('id') id: string, @Body() updateMissionDto) {
+  update(
+    @Req() req: Request,
+    @Param('id') id: string,
+    @Body() updateMissionDto,
+  ) {
     return this.missionsService.update(req['user'].id, id, updateMissionDto);
   }
 

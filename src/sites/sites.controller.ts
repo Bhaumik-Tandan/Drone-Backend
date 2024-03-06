@@ -27,7 +27,7 @@ export class SitesController {
   findAll(@Req() req: Request) {
     return this.sitesService.findAll(req['user'].id);
   }
-  
+
   @Get(':id/missions')
   getAllMissionsBySite(@Req() req: Request, @Param('id') siteId: string) {
     return this.sitesService.getAllMissionsBySite(req['user'].id, siteId);

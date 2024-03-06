@@ -10,8 +10,8 @@ export interface Mission extends Document {
     lng: number;
   }[];
   site: Types.ObjectId;
-  category?: Types.ObjectId; 
-  user:Types.ObjectId;
+  category?: Types.ObjectId;
+  user: Types.ObjectId;
 }
 
 const MissionSchema = new Schema<Mission>(
@@ -47,10 +47,10 @@ const MissionSchema = new Schema<Mission>(
       type: Schema.Types.ObjectId,
       ref: 'Category',
     },
-    user:{
+    user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-    }
+    },
   },
   {
     timestamps: true,

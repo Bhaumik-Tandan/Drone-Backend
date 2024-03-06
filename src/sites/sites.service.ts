@@ -10,7 +10,7 @@ export class SitesService {
     @InjectModel(SitesSchema.name)
     private sitesModel: Model<typeof SitesSchema>,
     private readonly missionsService: MissionService,
-    private readonly dronesService:DronesService
+    private readonly dronesService: DronesService,
   ) {}
   async create(user: { _id: string }, siteData) {
     const site = new this.sitesModel({ ...siteData, user });
@@ -22,14 +22,12 @@ export class SitesService {
     return this.sitesModel.find({ user }).exec();
   }
 
-  async getAllMissionsBySite(userId, siteId)
-  {
-    return this.missionsService.getMissionsBySite(userId,siteId);
+  async getAllMissionsBySite(userId, siteId) {
+    return this.missionsService.getMissionsBySite(userId, siteId);
   }
 
-  async getAllDronesBySite(userId, siteId)
-  {
-    return this.dronesService.getDronesBySite(userId,siteId);
+  async getAllDronesBySite(userId, siteId) {
+    return this.dronesService.getDronesBySite(userId, siteId);
   }
 
   async findOne(user, id: string) {

@@ -6,10 +6,11 @@ import MissionSchema from './mission.schema';
 @Injectable()
 export class MissionService {
   constructor(
-    @InjectModel(MissionSchema.name) private readonly missionModel: Model<typeof MissionSchema>,
+    @InjectModel(MissionSchema.name)
+    private readonly missionModel: Model<typeof MissionSchema>,
   ) {}
 
-  async create(userId: string, missionData){
+  async create(userId: string, missionData) {
     const mission = new this.missionModel({ ...missionData, user: userId });
     return mission.save();
   }
@@ -18,42 +19,53 @@ export class MissionService {
     return this.missionModel.find({ user: userId }).exec();
   }
 
-  async getMissionsBySite(userId, siteId)
-  {
-    return this.missionModel.find({ user: userId,site:siteId }).exec();
+  async getMissionsBySite(userId, siteId) {
+    return this.missionModel.find({ user: userId, site: siteId }).exec();
   }
 
   async findOne(userId: string, id: string) {
     try {
       const mission = await this.missionModel.findById(id).exec();
 
-      if (!mission || mission["user"].toString() !== userId) {
-        throw new UnauthorizedException('You are not authorized to access this mission');
+      if (!mission || mission['user'].toString() !== userId) {
+        throw new UnauthorizedException(
+          'You are not authorized to access this mission',
+        );
       }
 
       return mission;
     } catch (error) {
-      throw new UnauthorizedException('You are not authorized to access this mission');
+      throw new UnauthorizedException(
+        'You are not authorized to access this mission',
+      );
     }
   }
 
-  async update(userId: string, id: string, updateMissionDto: any){
+  async update(userId: string, id: string, updateMissionDto: any) {
     const updatedMission = await this.missionModel
-      .findOneAndUpdate({ _id: id, user: userId }, updateMissionDto, { new: true })
+      .findOneAndUpdate({ _id: id, user: userId }, updateMissionDto, {
+        new: true,
+      })
       .exec();
 
     if (!updatedMission) {
-      throw new UnauthorizedException('You are not authorized to update this mission');
+      throw new UnauthorizedException(
+        'You are not authorized to update this mission',
+      );
     }
 
     return updatedMission;
   }
 
-  async remove(userId: string, id: string){
-    const deletedMission = await this.missionModel.findOneAndRemove({ _id: id, user: userId }).exec();
+  async remove(userId: string, id: string) {
+    const deletedMission = await this.missionModel
+      .findOneAndRemove({ _id: id, user: userId })
+      .exec();
 
     if (!deletedMission) {
-      throw new UnauthorizedException('You are not authorized to delete this mission or the mission does not exist');
+      throw new UnauthorizedException(
+        'You are not authorized to delete this mission or the mission does not exist',
+      );
     }
 
     return deletedMission;

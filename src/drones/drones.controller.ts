@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+  UseGuards,
+  Put,
+} from '@nestjs/common';
 import { DronesService } from './drones.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
@@ -28,7 +39,11 @@ export class DronesController {
   }
 
   @Patch(':id')
-  partialUpdate(@Req() req: Request, @Param('id') id: string, @Body() updateDroneDto) {
+  partialUpdate(
+    @Req() req: Request,
+    @Param('id') id: string,
+    @Body() updateDroneDto,
+  ) {
     return this.dronesService.update(req['user'].id, id, updateDroneDto);
   }
 

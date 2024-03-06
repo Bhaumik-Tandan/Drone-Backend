@@ -7,6 +7,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [MongooseModule.forFeature([MissionSchema])],
   controllers: [MissionController],
-  providers: [MissionService]
+  providers: [MissionService],
 })
 export class MissionModule {}

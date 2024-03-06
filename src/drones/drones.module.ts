@@ -7,6 +7,6 @@ import DronesSchema from './drones.schema';
 @Module({
   imports: [MongooseModule.forFeature([DronesSchema])],
   controllers: [DronesController],
-  providers: [DronesService]
+  providers: [DronesService],
 })
 export class DronesModule {}
