@@ -18,7 +18,7 @@ export class MissionService {
     return this.missionModel.find({ user: userId }).exec();
   }
 
-  async getMission(userId, siteId)
+  async getMissionsBySite(userId, siteId)
   {
     return this.missionModel.find({ user: userId,site:siteId }).exec();
   }

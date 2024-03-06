@@ -33,6 +33,11 @@ export class SitesController {
     return this.sitesService.getAllMissionsBySite(req['user'].id, siteId);
   }
 
+  @Get(':id/drones')
+  getAllDronesBySite(@Req() req: Request, @Param('id') siteId: string) {
+    return this.sitesService.getAllDronesBySite(req['user'].id, siteId);
+  }
+
   @Get(':id')
   findOne(@Req() req: Request, @Param('id') id: string) {
     return this.sitesService.findOne(req['user'].id, id);

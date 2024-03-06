@@ -3,12 +3,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import SitesSchema from './sites.schema';
 import { Model } from 'mongoose';
 import { MissionService } from 'src/mission/mission.service';
+import { DronesService } from 'src/drones/drones.service';
 @Injectable()
 export class SitesService {
   constructor(
     @InjectModel(SitesSchema.name)
     private sitesModel: Model<typeof SitesSchema>,
-    private readonly missionsService: MissionService
+    private readonly missionsService: MissionService,
+    private readonly dronesService:DronesService
   ) {}
   async create(user: { _id: string }, siteData) {
     const site = new this.sitesModel({ ...siteData, user });
@@ -22,7 +24,12 @@ export class SitesService {
 
   async getAllMissionsBySite(userId, siteId)
   {
-    return this.missionsService.getMission(userId,siteId);
+    return this.missionsService.getMissionsBySite(userId,siteId);
+  }
+
+  async getAllDronesBySite(userId, siteId)
+  {
+    return this.dronesService.getDronesBySite(userId,siteId);
   }
 
   async findOne(user, id: string) {

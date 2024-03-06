@@ -34,6 +34,11 @@ export class DronesService {
       return error;
     }
   }
+
+  async getDronesBySite(userId, siteId)
+  {
+    return this.droneModel.find({ user: userId,site:siteId }).exec();
+  }
   
 
   async update(user, id: string, updatedDroneData) {
