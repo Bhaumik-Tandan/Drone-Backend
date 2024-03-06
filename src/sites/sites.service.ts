@@ -19,14 +19,19 @@ export class SitesService {
   }
 
   async findOne(user, id: string) {
-    const site = await this.sitesModel.findById(id).exec();
-
-    if (!site || site["user"].toString() !== user.toString()) {
-      throw new UnauthorizedException('You are not authorized to access this site');
+    try {
+      const site = await this.sitesModel.findById(id).exec();
+  
+      if (!site || site["user"].toString() !== user.toString()) {
+        throw new UnauthorizedException('You are not authorized to access this site');
+      }
+  
+      return site;
+    } catch (error) {
+      return error;
     }
-
-    return site;
   }
+  
 
   async update(user, id: string, updatedSiteData) {
     const updatedSite = await this.sitesModel.findOneAndUpdate(
