@@ -16,29 +16,30 @@ export class DronesService {
   }
 
   async findAll(user) {
-    return this.droneModel.find({ user }).exec();
+    return this.droneModel.find({ user, deletedAt: null }).exec();
   }
-
+  
   async findOne(user, id: string) {
     try {
       const drone = await this.droneModel.findById(id).exec();
-
-      if (!drone || drone['user'].toString() !== user.toString()) {
+  
+      if (!drone || drone['user'].toString() !== user.toString() || drone["deletedAt"]) {
         throw new UnauthorizedException(
           'You are not authorized to access this drone',
         );
       }
-
+  
       return drone;
     } catch (error) {
       return error;
     }
   }
+  
 
   async update(user, id: string, updatedDroneData) {
     try {
       const updatedDrone = await this.droneModel
-        .findOneAndUpdate({ _id: id, user }, updatedDroneData, { new: true })
+        .findOneAndUpdate({ _id: id, user }, updatedDroneData)
         .exec();
 
       if (!updatedDrone) {
@@ -55,19 +56,18 @@ export class DronesService {
 
   async remove(user, id: string) {
     try {
-      const deletedDrone = await this.droneModel
-        .findOneAndRemove({ _id: id, user })
-        .exec();
-
-      if (!deletedDrone) {
-        throw new UnauthorizedException(
-          'You are not authorized to delete this drone or the drone does not exist',
-        );
-      }
-
-      return deletedDrone;
+      const currentDate = new Date();
+  
+      this.droneModel.updateOne(
+        { _id: id, user },
+        { $set: { deletedBy: user, deletedOn: currentDate } }
+      ).exec();
+  
+  
+      return { _id: id, deletedBy: user, deletedOn: currentDate };
     } catch (error) {
-      return error;
+      throw error;
     }
   }
+  
 }
