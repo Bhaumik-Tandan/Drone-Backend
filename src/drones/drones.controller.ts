@@ -27,6 +27,11 @@ export class DronesController {
     return this.dronesService.update(req['user'].id, id, updateDroneDto);
   }
 
+  @Patch(':id')
+  partialUpdate(@Req() req: Request, @Param('id') id: string, @Body() updateDroneDto) {
+    return this.dronesService.update(req['user'].id, id, updateDroneDto);
+  }
+
   @Delete(':id')
   remove(@Req() req: Request, @Param('id') id: string) {
     return this.dronesService.remove(req['user'].id, id);

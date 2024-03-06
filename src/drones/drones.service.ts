@@ -59,6 +59,21 @@ export class DronesService {
     }
   }
 
+  async partialUpdate(user, id: string,partialField) {
+    try {
+  
+      const updatedDrone = await this.droneModel.updateOne(
+        { _id: id, user },
+        { $set:partialField  }
+      ).exec();
+  
+  
+      return updatedDrone;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async remove(user, id: string) {
     try {
       const currentDate = new Date();
